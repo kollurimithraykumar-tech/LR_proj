@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>California HomeValue</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="page">
+      <!-- Header -->
+      <header class="top-bar">
+        <div class="brand">
+          <div class="brand-icon">⌂</div>
+
+          <div>
+            <h2>California HomeValue</h2>
+            <p>Machine Learning House Price Predictor</p>
+          </div>
+        </div>
+
+        <div class="model-status">
+          <span class="status-dot"></span>
+          Model Online
+        </div>
+      </header>
+
+      <!-- Main Section -->
+      <main class="main-container">
+        <section class="hero">
+          <div class="hero-content">
+            <span class="tag"> AI POWERED PREDICTION </span>
+
+            <h1>
+              Estimate Your
+              <span>California Home Value</span>
+            </h1>
+
+            <p>
+              Enter the property details below and our machine learning model
+              will estimate the median house value.
+            </p>
+          </div>
+
+          <div class="hero-house">
+            <div class="house-icon">⌂</div>
+          </div>
+        </section>
+
+        <!-- Prediction Form -->
+        <section class="prediction-card">
+          <div class="section-heading">
+            <div>
+              <h2>Property Information</h2>
+              <p>Enter the details used by the prediction model.</p>
+            </div>
+
+            <span class="feature-count"> 6 Features </span>
+          </div>
+
+          <form action="/predict" method="POST">
+            <div class="form-grid">
+              <!-- Median Income -->
+              <div class="input-group">
+                <label for="MedInc">
+                  <span class="input-icon">$</span>
+                  Median Income
+                </label>
+
+                <p class="input-help">
+                  Median income of households in the area
+                </p>
+
+                <input
+                  type="number"
+                  step="any"
+                  id="MedInc"
+                  name="MedInc"
+                  placeholder="e.g. 3.5"
+                  required
+                />
+              </div>
+
+              <!-- House Age -->
+              <div class="input-group">
+                <label for="HouseAge">
+                  <span class="input-icon">⌂</span>
+                  House Age
+                </label>
+
+                <p class="input-help">Median age of houses in the area</p>
+
+                <input
+                  type="number"
+                  step="any"
+                  id="HouseAge"
+                  name="HouseAge"
+                  placeholder="e.g. 25"
+                  required
+                />
+              </div>
+
+              <!-- Average Rooms -->
+              <div class="input-group">
+                <label for="AveRooms">
+                  <span class="input-icon">▦</span>
+                  Average Rooms
+                </label>
+
+                <p class="input-help">Average number of rooms per household</p>
+
+                <input
+                  type="number"
+                  step="any"
+                  id="AveRooms"
+                  name="AveRooms"
+                  placeholder="e.g. 5.5"
+                  required
+                />
+              </div>
+
+              <!-- Population -->
+              <div class="input-group">
+                <label for="Population">
+                  <span class="input-icon">♟</span>
+                  Population
+                </label>
+
+                <p class="input-help">Population of the area</p>
+
+                <input
+                  type="number"
+                  step="any"
+                  id="Population"
+                  name="Population"
+                  placeholder="e.g. 1500"
+                  required
+                />
+              </div>
+
+              <!-- Average Occupancy -->
+              <div class="input-group">
+                <label for="AveOccup">
+                  <span class="input-icon">◉</span>
+                  Average Occupancy
+                </label>
+
+                <p class="input-help">Average number of people per household</p>
+
+                <input
+                  type="number"
+                  step="any"
+                  id="AveOccup"
+                  name="AveOccup"
+                  placeholder="e.g. 3"
+                  required
+                />
+              </div>
+
+              <!-- Latitude -->
+              <div class="input-group">
+                <label for="Latitude">
+                  <span class="input-icon">⌖</span>
+                  Latitude
+                </label>
+
+                <p class="input-help">Geographic latitude of the area</p>
+
+                <input
+                  type="number"
+                  step="any"
+                  id="Latitude"
+                  name="Latitude"
+                  placeholder="e.g. 34.05"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-row">
+              <button type="reset" class="reset-btn">Clear</button>
+
+              <button type="submit" class="predict-btn">
+                Predict Home Value
+                <span>→</span>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Result -->
+        {% if prediction is defined %}
+
+        <section class="result-card">
+          <div class="result-left">
+            <div class="result-icon">✓</div>
+
+            <div>
+              <p class="result-label">ESTIMATED MEDIAN HOME VALUE</p>
+
+              <h2>${{ "{:,.2f}".format(prediction * 100000) }}</h2>
+
+              <p class="result-note">Based on the information provided</p>
+            </div>
+          </div>
+
+          <div class="model-badge">Linear Regression</div>
+        </section>
+
+        {% endif %}
+
+        <!-- Footer -->
+        <footer>
+          <p>
+            California HomeValue
+            <span>•</span>
+            Machine Learning Project
+          </p>
+
+          <p>Built with Flask & Python</p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
